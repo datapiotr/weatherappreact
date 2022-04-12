@@ -57,11 +57,18 @@ main {
 }
 
 .information {
+  margin-top: 10%;
   color: white;
   text-align: center;
 }
 
 .information div {
-  font-size: 25px;
+  font-size: 35px;
   margin-bottom: 30px;
+}
+
+@media(max-width: 450px) {
+  .information div {
+    font-size: 25px;
+  }
 }

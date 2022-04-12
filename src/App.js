@@ -10,18 +10,7 @@ function App() {
   const [city, setCity] = useState('')
   const [temp, setTemp] = useState({})
 
-
-  const getDate = (d) => {
-    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-    let day = days[d.getDay()]
-    let date = d.getDate()
-    let month = months[d.getMonth()]
-    let year = d.getFullYear()
-
-    return `${day} ${date} ${month} ${year}`
-  }
+  const date = new Date()
 
   const getTemp = (e) => {
     if (e.key === "Enter" || e.type === "click") {
@@ -47,12 +36,14 @@ function App() {
             value={city}
             onKeyPress={getTemp}
           />
-          <button className="search-btn">Check</button>
+          <button className="search-btn" onClick={getTemp}>Check</button>
         </section>
         <section className="information">
-          {(typeof temp.main != 'undefined') ? (
-            <div className="data">{temp.name} | {getDate(new Date())} | {Math.round(temp.main.temp)}°c</div>
-          ) : ('')}
+          {(temp.cod === 200) ? (
+            <div>{temp.name} | {date.getDate()}.{date.getMonth() + 1}.{date.getFullYear()} | {Math.round(temp.main.temp)}°c</div>
+          )
+            : (temp.cod === '404') ? (<div>{temp.message}</div>)
+              : (<div>Welcome to weather app. Type the city to check current temperature in it.</div>)}
         </section>
       </main>
     </div>
